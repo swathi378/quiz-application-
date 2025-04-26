@@ -1,0 +1,122 @@
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+const categories = [
+  { id: 1, name: 'General Knowledge', icon: 'book-open-variant', color: '#FF6B6B' },
+  { id: 2, name: 'Technology', icon: 'laptop', color: '#4ECDC4' },
+  { id: 3, name: 'Sports', icon: 'basketball', color: '#45B7D1' },
+  { id: 4, name: 'Science', icon: 'flask', color: '#96CEB4' },
+  { id: 5, name: 'History', icon: 'clock-time-four', color: '#FFEEAD' },
+];
+
+export default function HomeScreen({ navigation }) {
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Quiz App</Text>
+        <Text style={styles.subtitle}>Choose a category to start</Text>
+      </View>
+      
+      <ScrollView style={styles.categoriesContainer}>
+        {categories.map((category) => (
+          <TouchableOpacity
+            key={category.id}
+            style={[styles.categoryCard, { backgroundColor: category.color }]}
+            onPress={() => navigation.navigate('Quiz', { category })}
+          >
+            <MaterialCommunityIcons name={category.icon} size={32} color="white" />
+            <Text style={styles.categoryName}>{category.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+      <View style={styles.statsContainer}>
+        <TouchableOpacity style={styles.statsCard}>
+          <MaterialCommunityIcons name="trophy" size={24} color="#FFD700" />
+          <Text style={styles.statsText}>Leaderboard</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.statsCard}>
+          <MaterialCommunityIcons name="star" size={24} color="#FFD700" />
+          <Text style={styles.statsText}>Achievements</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    padding: 20,
+    backgroundColor: 'white',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 5,
+  },
+  categoriesContainer: {
+    flex: 1,
+    padding: 15,
+  },
+  categoryCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 15,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  categoryName: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '600',
+    marginLeft: 15,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    padding: 15,
+    justifyContent: 'space-between',
+  },
+  statsCard: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginHorizontal: 5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  statsText: {
+    marginLeft: 8,
+    fontSize: 16,
+    color: '#333',
+  },
+});
